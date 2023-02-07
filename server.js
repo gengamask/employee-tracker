@@ -13,9 +13,9 @@ app.use(express.json());
 const db = sql.createConnection(
     {
         host: 'localhost',
-        user: 'root',
-        password: '9162',
-        database: 'company_db'
+        user: 'user',
+        password: 'password',
+        database: 'database'
     }
 )
 
