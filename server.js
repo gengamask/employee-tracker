@@ -13,14 +13,16 @@ app.use(express.json());
 const db = sql.createConnection(
     {
         host: 'localhost',
-        user: 'user',
-        password: 'password',
-        database: 'database'
+        user: 'root',
+        password: '9162',
+        database: 'company_db'
     }
 )
 
+
 const company = async () => {
     const comp = await 
+
     // Homepage
     iq.prompt([
         {
@@ -70,6 +72,58 @@ const company = async () => {
         console.log(`${newDept.adddept} has been added to the department table as a new department`)
         company();
     }
+
+    if(comp.home === "Add Role"){
+        db.query("SELECT name FROM department", function(err, res) {
+            // const newRole = await
+            iq.prompt([
+                {
+                    type: "input",
+                    name: "roleName",
+                    message: "What is the name of the role?"
+                },
+                {
+                    type: "input",
+                    name: "salary",
+                    message: "What is the salary of the role?"
+                },
+                {
+                    type: "list",
+                    name: "dept",
+                    choices: [res],
+                    message: "Which department does the role belong to?"
+                }
+            ])
+        })  
+        // db.query(`INSERT INTO roles (title, department_id, salary) VALUES ("${newRole.roleName}", "${newRole.salary}", "${newRole.dept}"), ;`);
+        // console.log(`New role has been added`)
+        // company();
+    }
+    
+    // if(comp.home === "Add Role"){
+    //     const newRole = await
+    //     iq.prompt([
+    //         {
+    //             type: "input",
+    //             name: "roleName",
+    //             message: "What is the name of the role?"
+    //         },
+    //         {
+    //             type: "input",
+    //             name: "salary",
+    //             message: "What is the salary of the role?"
+    //         },
+    //         {
+    //             type: "list",
+    //             name: "dept",
+    //             choices: [rolePlus],
+    //             message: "Which department does the role belong to?"
+    //         }
+    //     ])
+    //     db.query(`INSERT INTO roles (title, department_id, salary) VALUES ("${newRole.roleName}", "${newRole.salary}", "${newRole.dept}"), ;`);
+    //     console.log(`New role has been added`)
+    //     company();
+    // }
 } 
 
 app.listen(PORT, () => {})
